@@ -2,25 +2,29 @@ version: '3'
 services:
   eureka-server:
     build:
-      context: ./eureka-server
+      context: .
+      dockerfile: ./eureka-server/Dockerfile
     ports:
       - "8761:8761"
 
   configserver:
     build:
-      context: ./config-server
+      context: .
+      dockerfile: ./config-server/Dockerfile
     ports:
       - "8888:8888"
 
   api-gateway:
     build:
-      context: ./api-gateway
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
     ports:
       - "8080:8080"
 
   user-service:
     build:
-      context: ./user-service
+      context: .
+      dockerfile: ./user-service/Dockerfile
     ports:
       - "8081:8081"
     depends_on:
@@ -29,7 +33,8 @@ services:
 
   event-service:
     build:
-      context: ./event-service
+      context: .
+      dockerfile: ./event-service/Dockerfile
     ports:
       - "8082:8082"
     depends_on:
