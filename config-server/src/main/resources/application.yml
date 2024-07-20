@@ -7,4 +7,5 @@ spring:
       server:
         git:
           uri: https://github.com/oussemajebali/microservicesproject.git
+          search-paths: configurationFiles
           clone-on-start: true
