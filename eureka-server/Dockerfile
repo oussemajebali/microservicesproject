@@ -1,4 +1,10 @@
-FROM ubuntu:latest
-LABEL authors="aidou"
+# Use Maven to build the application
+FROM maven:3.8.5-openjdk-17 AS build
+WORKDIR /app
+COPY ./eureka-server /app
+RUN mvn clean package -DskipTests
 
-ENTRYPOINT ["top", "-b"]
+# Use a lightweight JDK image to run the application
+FROM openjdk:17-jdk-slim
+COPY --from=build /app/target/eureka-server-0.0.1-SNAPSHOT.jar /app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]

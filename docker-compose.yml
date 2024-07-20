@@ -1,45 +1,40 @@
 version: '3'
 services:
   eureka-server:
-    image: eureka-server:latest
     build:
       context: ./eureka-server
     ports:
       - "8761:8761"
 
   configserver:
-    image: config-server:latest
     build:
       context: ./config-server
     ports:
       - "8888:8888"
 
   api-gateway:
-    image: api-gateway:latest
     build:
       context: ./api-gateway
     ports:
       - "8080:8080"
-  
+
   user-service:
-    image: user-service:latest
     build:
       context: ./user-service
     ports:
       - "8081:8081"
     depends_on:
       - eureka-server
-      - config-server
+      - configserver
 
   event-service:
-    image: event-service:latest
     build:
       context: ./event-service
     ports:
       - "8082:8082"
     depends_on:
       - eureka-server
-      - config-server
+      - configserver
 
   kafka:
     image: wurstmeister/kafka:latest
